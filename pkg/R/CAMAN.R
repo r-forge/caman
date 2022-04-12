@@ -605,7 +605,7 @@ bivariate.EM<-function(obs1,obs2,type,data = NULL, var1, var2, corr, lambda1, la
       corr <- getElement(data, corr_name)
     }
   }
-if(type=="bi"&& lambda1!=0 && lambda2 !=0 && p !=0){
+if(type=="bi" & all(p > 0) & all(lambda1 != 0) & all(lambda2 != 0)){
 ##cat("### EM-algorithm for bivariate normally distributed data")
 
 
@@ -655,7 +655,7 @@ res<-new("CAMAN.BIEM.object", RESULT=ERG ,BIC=bic,LL=ll[1],Mat=mat, Z=z)}
 return(res)
 }
 
-if(type=="meta" &&  lambda1!=0 && lambda2!=0 && p!=0){
+if(type=="meta" & all(p > 0) & all(lambda1 != 0) & all(lambda2 != 0)){
 
 z3 <- function(a,n,v1,v2,l1,l2,pro, numiter,acc){
   .Call("ema_meta_st", as.vector(a), as.vector(n),as.vector(v1),as.vector(v2),
