@@ -41,3 +41,5 @@ Schlattmann, P. (2009). \emph{Medical Applications of Finite Mixture Models}. Be
 Peter Schlattmann and Johannes Hoehne   
 }
 
+\keyword{hplot}
+\concept{histogram}

@@ -83,4 +83,7 @@ em1<-mixalg.EM(mix0,p=c(0.7,0.3),t=c(2,9))
 
 }
 
-\keyword{meta-analysis}
+\concept{meta-analysis}
+\keyword{models}
+\concept{EM-algorithm}
+\concept{mixture model}

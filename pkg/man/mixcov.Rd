@@ -135,4 +135,7 @@ beta4 <- mixcov(dep="betacaro", fixed=c("chol","sex","bmi"), random="betadiet",
                 data=betaplasma, k=4, family="gaussian")
 }
 
-\keyword{meta-analysis, covariates, mixture model}
+\concept{meta-analysis}
+\concept{covariates}
+\concept{mixture model}
+\keyword{models}

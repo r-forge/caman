@@ -143,4 +143,6 @@ mix <- mixalg(obs="logrr", var.lnOR="var", data=aspirin)
 
 }
 
-\keyword{meta-analysis, mixture model, mix}
+\concept{meta-analysis}
+\concept{mixture model}
+\keyword{models}

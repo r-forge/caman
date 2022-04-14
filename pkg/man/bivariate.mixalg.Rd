@@ -44,4 +44,6 @@ bivariate.mixalg(obs1=logitTPR, obs2=logitTNR,
                  p=0,data=CT,startk=20,class="TRUE")
 }
 }
-\keyword{datasets}
+
+\keyword{models}
+\concept{mixture model}

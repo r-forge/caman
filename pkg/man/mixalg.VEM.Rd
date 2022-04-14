@@ -79,4 +79,7 @@ plot(m0@totalgrid[,2],m0@totalgrid[,3],type="l",xlab="parameter",ylab="gradient"
 m1<-mixalg.EM(obs="logrr",var.lnOR="var" ,family="gaussian",p=c(1),t=c(0),data=vitA)
 }
 
-\keyword{meta-analysis}
+\keyword{models}
+\concept{meta-analysis}
+\concept{mixture model}
+\concept{EM algorithm}

@@ -37,5 +37,4 @@ CAMANboot(obs1=logitTPR, obs2=logitTNR, var1=varlogitTPR, var2=varlogitTNR,
           lambda11=hom1, lambda12=hom2, prob1=p1, 
           lambda21=start1, lambda22=start2, prob2=pvem,rep=3,data=CT)
 }
-\keyword{datasets}
-
+\concept{parametric bootstrap}

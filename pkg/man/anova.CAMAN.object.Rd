@@ -84,4 +84,5 @@ em1<-mixalg.EM(mix0,p=c(0.7,0.3),t=c(2,9))
 \dontrun{ll<-anova(em0,em1,nboot=250)} #might take some minutes
 }
 
-\keyword{meta-analysis}
+\concept{meta-analysis}
+\keyword{htest}

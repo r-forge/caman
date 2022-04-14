@@ -33,5 +33,7 @@ bivariate.VEM(obs1=logitTPR, obs2=logitTNR,
               type="meta", data=CT, startk=20)
 }
 }
-\keyword{datasets}
 
+\keyword{models}
+\concept{EM-algorithm}
+\concept{mixture model}

@@ -50,4 +50,8 @@ ct.m1 <- bivariate.EM(obs1=logitTPR, obs2=logitTNR,
                       type="meta", lambda1=lamlog12, lambda2=lamlog22,
                       p=p2,data=CT,class="TRUE")
 }
-\keyword{datasets}
+
+
+\keyword{models}
+\concept{EM-algorithm}
+\concept{mixture model}

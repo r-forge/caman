@@ -84,4 +84,6 @@ mix <- mixalg(obs="observations",pop.at.risk="expected",family= "poisson",data=h
 table(boot$numk.boot)}
 }
 
-\keyword{meta-analysis}
+\concept{meta-analysis}
+\concept{bootstrap}
+\concept{mixture model}

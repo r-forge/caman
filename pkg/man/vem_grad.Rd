@@ -1,7 +1,7 @@
 \name{ vem_grad }
 \alias{ vem_grad}
 \title{ VEM algorithm for univariate data, for bivariate data and for meta data}
-\description{This function }
+\description{This function implements a VEM algorithm.}
 \usage{
 vem_grad(obs1, obs2, type, data, var1, var2, 
          lambda1, lambda2, p, startk, 
@@ -33,5 +33,4 @@ vem_grad(obs1=logitTPR, obs2= logitTNR,
          type="meta", data=CT, startk=20)
 }
 }
-\keyword{datasets}
 
