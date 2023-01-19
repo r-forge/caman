@@ -26,7 +26,7 @@ int numiter;
 int k;
 int N;
 //int iterat;
-   vector<vector<double> > sample;
+   vector<vector<double> > mysample;
    vector<vector<double> > lambda;
    
    vector<vector<double> > var;
@@ -52,12 +52,12 @@ numiter = INTEGER(num)[0];
 double tol=REAL(acc)[0];
 double* x=REAL(ra);
 vector<double> a(x, x + LENGTH (ra));
-sample.clear();
+mysample.clear();
 lik.clear();
  gl.clear();
  res.clear();
-sample.push_back(a);
-N = sample.at(0).size();
+mysample.push_back(a);
+N = mysample.at(0).size();
   vector<vector<double> > res = vemema.do_vem(k,tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -85,13 +85,13 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 vector<double> a(x, x + LENGTH (ra));
 vector<double> n(y, y + LENGTH (rn));
-sample.clear();
+mysample.clear();
 lik.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
    gl.clear();
    res.clear();
-N = sample.at(0).size();
+N = mysample.at(0).size();
   res = vemema.f1();  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -120,13 +120,13 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 vector<double> a(x, x + LENGTH (ra));
 vector<double> n(y, y + LENGTH (rn));
-sample.clear();
+mysample.clear();
  gl.clear();
  res.clear();
  lik.clear();
-sample.push_back(a);
-sample.push_back(n);
-N = sample.at(0).size();
+mysample.push_back(a);
+mysample.push_back(n);
+N = mysample.at(0).size();
 //Rprintf("N =%d \n",N);
  res = vemema.vem_bivariate(k,tol);  
   SEXP rres;
@@ -154,12 +154,12 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 vector<double> a(x, x + LENGTH (ra));
 vector<double> n(y, y + LENGTH (rn));
-sample.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.clear();
+mysample.push_back(a);
+mysample.push_back(n);
    gl.clear();
    res.clear();
-N = sample.at(0).size();
+N = mysample.at(0).size();
 //Rprintf("N =%d \n",N);
  res = vemema.vem_bivariate_grad(k,tol);  
   SEXP rres;
@@ -185,10 +185,10 @@ numiter = INTEGER(num)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
 vector<double> a(x, x + LENGTH (ra));
-sample.clear();
+mysample.clear();
 resi.clear();
-sample.push_back(a);
-N = sample.at(0).size();
+mysample.push_back(a);
+N = mysample.at(0).size();
  resi= vemema.ema_ind_uni(tol);  
   SEXP rres;
   PROTECT(rres=allocVector(REALSXP, resi.size()));
@@ -207,11 +207,11 @@ numiter = INTEGER(num)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
 vector<double> a(x, x + LENGTH (ra));
-sample.clear();
-sample.push_back(a);
+mysample.clear();
+mysample.push_back(a);
  gl.clear();
  res.clear();
-N = sample.at(0).size();
+N = mysample.at(0).size();
   res = vemema.ema_uni(tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -239,11 +239,11 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 vector<double> a(x, x + LENGTH (ra));
 vector<double> n(y, y + LENGTH (rn));
-sample.clear();
+mysample.clear();
 resi.clear();
-sample.push_back(a);
-sample.push_back(n);
-N = sample.at(0).size();
+mysample.push_back(a);
+mysample.push_back(n);
+N = mysample.at(0).size();
    resi= vemema.ema_ind(tol);  
   SEXP rres;
   PROTECT(rres=allocVector(REALSXP, resi.size()));
@@ -264,11 +264,11 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 vector<double> a(x, x + LENGTH (ra));
 vector<double> n(y, y + LENGTH (rn));
-sample.clear();
+mysample.clear();
 resi.clear();
-sample.push_back(a);
-sample.push_back(n);
-N = sample.at(0).size();
+mysample.push_back(a);
+mysample.push_back(n);
+N = mysample.at(0).size();
    resi = vemema.ema_ind_sh(tol);  
   SEXP rres;
   PROTECT(rres=allocVector(REALSXP, resi.size()));
@@ -289,12 +289,12 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 vector<double> a(x, x + LENGTH (ra));
 vector<double> n(y, y + LENGTH (rn));
-sample.clear();
+mysample.clear();
  gl.clear();
  res.clear();
-sample.push_back(a);
-sample.push_back(n);
-N = sample.at(0).size();
+mysample.push_back(a);
+mysample.push_back(n);
+N = mysample.at(0).size();
    res = vemema.ema_univariat(tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -332,20 +332,20 @@ vector<double> n(y, y + LENGTH (rn));
 vector<double> l1(e, e + LENGTH (lam1));
 vector<double> l2(f, f + LENGTH (lam2));
 vector<double> pro(p, p + LENGTH (pr));
-sample.clear();
+mysample.clear();
 //var.clear();
 lambda.clear();
 prob.clear();
 resi.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 //var.push_back(v1);
 //var.push_back(v2);
 lambda.push_back(l1);
 lambda.push_back(l2);
 prob=pro;
 //corr=co;
-N = sample.at(0).size();
+N = mysample.at(0).size();
   resi = vemema.ema_ind_start(tol);  
   
   SEXP rres;
@@ -369,12 +369,12 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 vector<double> a(x, x + LENGTH (ra));
 vector<double> n(y, y + LENGTH (rn));
-sample.clear();
+mysample.clear();
    gl.clear();
    res.clear();
-sample.push_back(a);
-sample.push_back(n);
-N = sample.at(0).size();
+mysample.push_back(a);
+mysample.push_back(n);
+N = mysample.at(0).size();
    res = vemema.ema_versh(tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -401,13 +401,13 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 vector<double> a(x, x + LENGTH (ra));
 vector<double> n(y, y + LENGTH (rn));
-sample.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.clear();
+mysample.push_back(a);
+mysample.push_back(n);
 lik.clear();
  gl.clear();
  res.clear();
-N = sample.at(0).size();
+N = mysample.at(0).size();
   res = vemema.ema_versh_sh(tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -448,22 +448,22 @@ vector<double> n(y, y + LENGTH (rn));
 vector<double> l1(e, e + LENGTH (lam1));
 vector<double> l2(f, f + LENGTH (lam2));
 vector<double> pro(p, p + LENGTH (pr));
-sample.clear();
+mysample.clear();
 lik.clear();
 lambda.clear();
 prob.clear();
  gl.clear();
  res.clear();
 //corr.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 //var.push_back(v1);
 //var.push_back(v2);
 lambda.push_back(l1);
 lambda.push_back(l2);
 prob=pro;
 //corr=co;
-N = sample.at(0).size();
+N = mysample.at(0).size();
   res = vemema.ema_versh_start(tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -500,16 +500,16 @@ vector<double> v1(d, d + LENGTH (rv1));
 vector<double> v2(z, z + LENGTH (rv2));
 
 
-sample.clear();
+mysample.clear();
 var.clear();
 lik.clear();
    gl.clear();
    res.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 var.push_back(v1);
 var.push_back(v2);
-N = sample.at(0).size();
+N = mysample.at(0).size();
   res = vemema.vem_bivariate_meta(k,tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -540,18 +540,18 @@ vector<double> a(x, x + LENGTH (ra));
 vector<double> n(y, y + LENGTH (rn));
 vector<double> v1(d, d + LENGTH (rv1));
 vector<double> v2(z, z + LENGTH (rv2));
-sample.clear();
+mysample.clear();
 var.clear();
 lik.clear();
 res.clear();
    gl.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 var.push_back(v1);
 var.push_back(v2);
 
 
-N = sample.at(0).size();
+N = mysample.at(0).size();
   res = vemema.f1_meta();  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -583,17 +583,17 @@ vector<double> n(y, y + LENGTH (rn));
 vector<double> v1(d, d + LENGTH (rv1));
 vector<double> v2(z, z + LENGTH (rv2));
 
-sample.clear();
+mysample.clear();
 var.clear();
 lambda.clear();
 prob.clear();
 resi.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 var.push_back(v1);
 var.push_back(v2);
 
-N = sample.at(0).size();
+N = mysample.at(0).size();
   resi = vemema.ema_ind_meta(tol);  
   SEXP rres;
   PROTECT(rres=allocVector(REALSXP, resi.size()));
@@ -619,17 +619,17 @@ vector<double> n(y, y + LENGTH (rn));
 vector<double> v1(d, d + LENGTH (rv1));
 vector<double> v2(z, z + LENGTH (rv2));
 
-sample.clear();
+mysample.clear();
 var.clear();
 lambda.clear();
 prob.clear();
 resi.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 var.push_back(v1);
 var.push_back(v2);
 
-N = sample.at(0).size();
+N = mysample.at(0).size();
  resi = vemema.ema_ind_meta_sh(tol);  
   SEXP rres;
   PROTECT(rres=allocVector(REALSXP, resi.size()));
@@ -666,13 +666,13 @@ vector<double> v2(z, z + LENGTH (rv2));
 vector<double> l1(e, e + LENGTH (lam1));
 vector<double> l2(f, f + LENGTH (lam2));
 vector<double> pro(p, p + LENGTH (pr));
-sample.clear();
+mysample.clear();
 var.clear();
 lambda.clear();
 prob.clear();
 lik.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 var.push_back(v1);
 var.push_back(v2);
 lambda.push_back(l1);
@@ -680,7 +680,7 @@ lambda.push_back(l2);
 gl.clear();
 res.clear();
 prob=pro;
-N = sample.at(0).size();
+N = mysample.at(0).size();
   res = vemema.ema_versh_meta(tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -723,19 +723,19 @@ vector<double> v2(z, z + LENGTH (rv2));
 vector<double> l1(e, e + LENGTH (lam1));
 vector<double> l2(f, f + LENGTH (lam2));
 vector<double> pro(p, p + LENGTH (pr));
-sample.clear();
+mysample.clear();
 var.clear();
 lambda.clear();
 prob.clear();
 resi.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 var.push_back(v1);
 var.push_back(v2);
 lambda.push_back(l1);
 lambda.push_back(l2);
 prob=pro;
-N = sample.at(0).size();
+N = mysample.at(0).size();
 resi = vemema.ema_ind_meta_start(tol);  
   SEXP rres;
   PROTECT(rres=allocVector(REALSXP, resi.size()));
@@ -761,16 +761,16 @@ vector<double> n(y, y + LENGTH (rn));
 vector<double> v1(d, d + LENGTH (rv1));
 vector<double> v2(z, z + LENGTH (rv2));
 
-sample.clear();
+mysample.clear();
 var.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 var.push_back(v1);
 var.push_back(v2);
 lik.clear();
 res.clear();
    gl.clear();
-N = sample.at(0).size();
+N = mysample.at(0).size();
  res = vemema.ema_meta(tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -804,17 +804,17 @@ vector<double> n(y, y + LENGTH (rn));
 vector<double> v1(d, d + LENGTH (rv1));
 vector<double> v2(z, z + LENGTH (rv2));
 
-sample.clear();
+mysample.clear();
 var.clear();
 lik.clear();
   gl.clear();
   res.clear();
-sample.push_back(a);
-sample.push_back(n);
+mysample.push_back(a);
+mysample.push_back(n);
 var.push_back(v1);
 var.push_back(v2);
 
-N = sample.at(0).size();
+N = mysample.at(0).size();
    res = vemema.ema_meta_sh(tol);  
   SEXP rres;
    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
@@ -837,21 +837,21 @@ void VEMEMA::initialize(const char*name)
 	ifstream in(name);
 	//assert(in.good());
 
-	sample.clear();
-	sample.resize(2);
+	mysample.clear();
+	mysample.resize(2);
 double s1, s2;
 	while(in >> s1 >> s2)
 	{
-		sample.at(0).push_back(s1);
-		sample.at(1).push_back(s2);
+		mysample.at(0).push_back(s1);
+		mysample.at(1).push_back(s2);
 	}
 
 
 
 
-	N = sample.at(0).size();
+	N = mysample.at(0).size();
 Rprintf("%s \n", "BERECHNUNG STARTET"); 
-//return sample;
+//return mysample;
 //printf("ok", s1);
 }
 
@@ -953,11 +953,11 @@ void VEMEMA::get_variance()
 	int i, j;
 
 	var.clear();
-	var.resize(sample.size());
+	var.resize(mysample.size());
 
 	for(i=0; i<(int)lambda.size(); ++i){
 		for(j=0; j<(int)lambda.at(i).size(); ++j){
-			var.at(i).push_back(variance(sample.at(i), lambda.at(i).at(j)));
+			var.at(i).push_back(variance(mysample.at(i), lambda.at(i).at(j)));
 		} /// end j-loop
 	}
 }
@@ -969,8 +969,8 @@ void VEMEMA::get_variance()
 /// Ausgabe: Vektor corr.at(j)
 /// lambda - Mittelwert der Subpopulationen
 /// j - Nummer der Komponenten
-/// sample.at(0) - Beobachtungen aus X1
-/// sample.at(1) - Beobachtungen aus X2
+/// mysample.at(0) - Beobachtungen aus X1
+/// mysample.at(1) - Beobachtungen aus X2
 /// lamdba.at(0).at(j) - Mittelwerte des X1
 /// lambda.at(1).at(j) - Mittelwerte des X2
 /// var.at(0).at(j) - Varianz des X1
@@ -981,7 +981,7 @@ void VEMEMA::get_corr()
 
 	corr.clear();
 	for(j=0; j<(int)lambda.at(0).size(); ++j)
-		corr.push_back(correlation(sample.at(0), sample.at(1), lambda.at(0).at(j), lambda.at(1).at(j), var.at(0).at(j), var.at(1).at(j)));
+		corr.push_back(correlation(mysample.at(0), mysample.at(1), lambda.at(0).at(j), lambda.at(1).at(j), var.at(0).at(j), var.at(1).at(j)));
 }
 
 
@@ -1034,8 +1034,8 @@ double VEMEMA::normal_mult(double x1, double x2, double m1, double m2, double v1
 ///          j - Nummer der Komponenten (Klass)
 /// Ausgabe: d - Wert der bivariate Normalverteilungsdichte
 /// lambda - Mittelwert der Subpopulationen
-/// sample.at(0) - Beobachtungen aus X1
-/// sample.at(1) - Beobachtungen aus X2
+/// mysample.at(0) - Beobachtungen aus X1
+/// mysample.at(1) - Beobachtungen aus X2
 /// lamdba.at(0).at(j) - Mittelwerte des X1
 /// lambda.at(1).at(j) - Mittelwerte des X2
 /// var.at(0).at(j) - Varianz des X1
@@ -1045,7 +1045,7 @@ double VEMEMA::density(int i, int j)
 {
 	double d;
 
-	d = normal_mult(sample.at(0).at(i), sample.at(1).at(i), lambda.at(0).at(j), lambda.at(1).at(j), var.at(0).at(j), var.at(1).at(j), corr.at(j));
+	d = normal_mult(mysample.at(0).at(i), mysample.at(1).at(i), lambda.at(0).at(j), lambda.at(1).at(j), var.at(0).at(j), var.at(1).at(j), corr.at(j));
 
 	return d;
 
@@ -1054,7 +1054,7 @@ double VEMEMA::density_meta(int i, int j)
 {
 	double d;
 
-	d = normal_mult(sample.at(0).at(i), sample.at(1).at(i), lambda.at(0).at(j), lambda.at(1).at(j), var.at(0).at(i), var.at(1).at(i), 0);
+	d = normal_mult(mysample.at(0).at(i), mysample.at(1).at(i), lambda.at(0).at(j), lambda.at(1).at(j), var.at(0).at(i), var.at(1).at(i), 0);
 
 	return d;
 
@@ -1064,7 +1064,7 @@ double VEMEMA::density_uni(int i, int j)
 {
   double d;
 
-  d = normal(sample.at(0).at(i), lambda.at(0).at(j), var.at(0).at(j));
+  d = normal(mysample.at(0).at(i), lambda.at(0).at(j), var.at(0).at(j));
 
   return d;
 
@@ -1111,18 +1111,18 @@ void VEMEMA::get_dens(vector<vector<double> >& l, vector<vector<double> >& d)
 	v.resize(l.size());
 	for(i=0; i<(int)l.size(); ++i)
 		for(j=0; j<(int)l.at(i).size(); ++j)
-			v.at(i).push_back(variance(sample.at(i), l.at(i).at(j)));
+			v.at(i).push_back(variance(mysample.at(i), l.at(i).at(j)));
 
 	vector<double> c; /// Vektor mit Korrelationskoeffizienten
 	c.clear();
 	for(j=0; j<(int)l.at(0).size(); ++j)
-		c.push_back(correlation(sample.at(0), sample.at(1), l.at(0).at(j), l.at(1).at(j), v.at(0).at(j), v.at(1).at(j)));
+		c.push_back(correlation(mysample.at(0), mysample.at(1), l.at(0).at(j), l.at(1).at(j), v.at(0).at(j), v.at(1).at(j)));
 
 	d.clear();
 	d.resize(N);
 	for(i=0; i<N; ++i)
 		for(j=0; j<(int)l.at(0).size(); ++j)
-			d.at(i).push_back(normal_mult(sample.at(0).at(i), sample.at(1).at(i), l.at(0).at(j), l.at(1).at(j), v.at(0).at(j), v.at(1).at(j), c.at(j)));
+			d.at(i).push_back(normal_mult(mysample.at(0).at(i), mysample.at(1).at(i), l.at(0).at(j), l.at(1).at(j), v.at(0).at(j), v.at(1).at(j), c.at(j)));
 
 
 }
@@ -1137,22 +1137,22 @@ void VEMEMA::get_dens1(vector<vector<double> >& l, vector<vector<double> >& d)
 {
 	int i,j;
 
-	double v0 = variance(sample.at(0)); /// Empirische Varianz der erste Spalte der Beobachtungen
-	double v1 = variance(sample.at(1)); /// Empirische Varianz der zweite Spalte der Beobachtungen
+	double v0 = variance(mysample.at(0)); /// Empirische Varianz der erste Spalte der Beobachtungen
+	double v1 = variance(mysample.at(1)); /// Empirische Varianz der zweite Spalte der Beobachtungen
 
-	double l0 = mean(sample.at(0)); /// Empirischer Mitterwert der erste Spalte der Beobachtungen
-	double l1 = mean(sample.at(1)); /// Empirischer Varianz der zweite Spalte der Beobachtungen
+	double l0 = mean(mysample.at(0)); /// Empirischer Mitterwert der erste Spalte der Beobachtungen
+	double l1 = mean(mysample.at(1)); /// Empirischer Varianz der zweite Spalte der Beobachtungen
 	//cout<<l0<<"   "<< v0;
 	//cout<<endl;
 
-	double c = correlation(sample.at(0),sample.at(1), l0, l1, v0, v1); ///Empirischer Korrelationskoefizient
+	double c = correlation(mysample.at(0),mysample.at(1), l0, l1, v0, v1); ///Empirischer Korrelationskoefizient
 	//cout<<c;
 
 	d.clear();
 	d.resize(N);
 	for(i=0; i<N; ++i)
 		for(j=0; j<(int)l.at(0).size(); ++j)
-			d.at(i).push_back(normal_mult(sample.at(0).at(i), sample.at(1).at(i), l.at(0).at(j), l.at(1).at(j), v0, v1, c));
+			d.at(i).push_back(normal_mult(mysample.at(0).at(i), mysample.at(1).at(i), l.at(0).at(j), l.at(1).at(j), v0, v1, c));
 
 
 }
@@ -1161,22 +1161,22 @@ void VEMEMA::get_dens_meta(vector<vector<double> >& l, vector<vector<double> >& 
 {
 	int i,j;
 
-//	double v0 = variance(sample.at(0)); /// Empirische Varianz der erste Spalte der Beobachtungen
-//	double v1 = variance(sample.at(1)); /// Empirische Varianz der zweite Spalte der Beobachtungen
+//	double v0 = variance(mysample.at(0)); /// Empirische Varianz der erste Spalte der Beobachtungen
+//	double v1 = variance(mysample.at(1)); /// Empirische Varianz der zweite Spalte der Beobachtungen
 //
-//	double l0 = mean(sample.at(0)); /// Empirischer Mitterwert der erste Spalte der Beobachtungen
-//	double l1 = mean(sample.at(1)); /// Empirischer Varianz der zweite Spalte der Beobachtungen
+//	double l0 = mean(mysample.at(0)); /// Empirischer Mitterwert der erste Spalte der Beobachtungen
+//	double l1 = mean(mysample.at(1)); /// Empirischer Varianz der zweite Spalte der Beobachtungen
 //	//cout<<l0<<"   "<< v0;
 //	//cout<<endl;
 
-//	double c = correlation(sample.at(0),sample.at(1), l0, l1, v0, v1); ///Empirischer Korrelationskoefizient
+//	double c = correlation(mysample.at(0),mysample.at(1), l0, l1, v0, v1); ///Empirischer Korrelationskoefizient
 	//cout<<c;
 
 	d.clear();
 	d.resize(N);
 	for(i=0; i<N; ++i)
 		for(j=0; j<(int)l.at(0).size(); ++j)
-			d.at(i).push_back(normal_mult(sample.at(0).at(i), sample.at(1).at(i), l.at(0).at(j), l.at(1).at(j),  var.at(0).at(i), var.at(1).at(i), 0));
+			d.at(i).push_back(normal_mult(mysample.at(0).at(i), mysample.at(1).at(i), l.at(0).at(j), l.at(1).at(j),  var.at(0).at(i), var.at(1).at(i), 0));
 
 
 }
@@ -1407,13 +1407,13 @@ void VEMEMA::get_start_values(int start_nr_cl, vector<double>& s, vector<double>
 
 	//   int n = (N-2)/(start_nr_cl-2);
 
-	//   vector<double> sort_sample;
-	//   sort(s, sort_sample);
+	//   vector<double> sort_mysample;
+	//   sort(s, sort_mysample);
 
 	//   l.clear();
 	//   for(i=0; i<N; i+=n)
-	//     l.push_back(sort_sample.at(i));
-	//   if(i>N) l.push_back(sort_sample.at(N-1));
+	//     l.push_back(sort_mysample.at(i));
+	//   if(i>N) l.push_back(sort_mysample.at(N-1));
 
 	//   p = vector<double>(start_nr_cl,1./start_nr_cl);
 
@@ -1455,9 +1455,9 @@ void VEMEMA::get_start_values(int start_nr_cl, vector<vector<double> >& L, vecto
 	vector<vector<double> > L_temp;
 	L_temp.clear();
 
-	for(i=0; i<(int)sample.size(); ++i)
+	for(i=0; i<(int)mysample.size(); ++i)
 	{
-		s = sample.at(i);
+		s = mysample.at(i);
 		get_start_values(start_nr_cl, s, l, p);
 		L_temp.push_back(l);
 	}
@@ -1661,7 +1661,7 @@ void VEMEMA::vem(int col, int start_nr_cl, double tol, vector<double>& l_out, ve
 	double grad_max=0;
 	vector<vector<double> > dens;
 	vector<double> grad;
-	vector<double> s = sample.at(col);
+	vector<double> s = mysample.at(col);
 	vector<double> ht;
 	vector<double> l;
 	vector<double> p;
@@ -1776,7 +1776,7 @@ void VEMEMA::vem(int col, int start_nr_cl, double tol, vector<double>& l_out, ve
 //      }
 //
 //  lambda.clear();
-//  lambda.resize(sample.size());
+//  lambda.resize(mysample.size());
 //  prob.clear();
 //
 //  for(i=0; i<(int)p.size(); ++i)
@@ -1872,7 +1872,7 @@ vector<vector<double> >  VEMEMA::vem_bivariate(int start_nr_cl, double tol)
 		}
 
 		lambda.clear();
-		lambda.resize(sample.size());
+		lambda.resize(mysample.size());
 		prob.clear();
 	//	Rprintf("test \n");
 	//	ll=0;
@@ -1989,7 +1989,7 @@ vector<vector<double> > result;
       }
 
   lambda.clear();
-  lambda.resize(sample.size());
+  lambda.resize(mysample.size());
   prob.clear();
 
   for(i=0; i<(int)p.size(); ++i)
@@ -2087,7 +2087,7 @@ if(step<0) step=0;
       }
 
   lambda.clear();
-  lambda.resize(sample.size());
+  lambda.resize(mysample.size());
   prob.clear();
 
   for(i=0; i<(int)p.size(); ++i)
@@ -2283,7 +2283,7 @@ double lh;
 	lam.clear();
 	pr.clear();
    result.clear();
-	for(i=0; i<(int)sample.size(); ++i)
+	for(i=0; i<(int)mysample.size(); ++i)
 	{
 		//cout << endl << "### VEM for " << i+1 << ". column ###" << endl;
 		vector<double> l, p;
@@ -2326,7 +2326,7 @@ double lh;
 		
 		
 	 get_variance();
-    for(i=0; i<(int)sample.at(0).size(); ++i){
+    for(i=0; i<(int)mysample.at(0).size(); ++i){
       	for(j=0; j<(int)lambda.at(0).size(); ++j){
 	density_uni(i,j);
 	 mix_den_uni(i);}}
@@ -2457,17 +2457,17 @@ vector<double> result;
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 
-	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -2605,17 +2605,17 @@ vector<double> result;
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 
-	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -2754,17 +2754,17 @@ dens.clear();
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 
-	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	     // corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	     // corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -2782,7 +2782,7 @@ dens.clear();
 //    corr_new = vector<double>(k,c/sqrt(v.at(0)*v.at(1)));
     //for(j=0; j<k; ++j)
     //  corr_new.at(j) /= sqrt(var_new.at(0).at(j)*var_new.at(1).at(j));
-get_dens(sample.at(0), lambda_new.at(0), dens);
+get_dens(mysample.at(0), lambda_new.at(0), dens);
 	gradient(dens, prob_new, grad);
 	get_max_min(grad, prob_new, i_max, i_min, grad_max);
    // lh = likelihood_uni();
@@ -2899,17 +2899,17 @@ dens.clear();
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 
-	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -3049,17 +3049,17 @@ vector<double> result;
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      //for(l=0; l<dim; ++l)
-//		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+//		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 //
-//	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-//	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -3201,17 +3201,17 @@ vector<double> result;
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      //for(l=0; l<dim; ++l)
-//		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+//		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 //
-//	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-//	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -3349,17 +3349,17 @@ vector<double> result;
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      //for(l=0; l<dim; ++l)
-//		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+//		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 //
-//	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-//	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -3498,15 +3498,15 @@ result.clear();
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
-	     // c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
+	     // c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 
 	  }
 
@@ -3522,7 +3522,7 @@ var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),
     //corr_new = vector<double>(k,c/sqrt(v.at(0)*v.at(1)));
 
 //    lh = likelihood_uni();
-get_dens(sample.at(0), lambda_new.at(0), dens);
+get_dens(mysample.at(0), lambda_new.at(0), dens);
 	gradient(dens, prob_new, grad);
 	get_max_min(grad, prob_new, i_max, i_min, grad_max);
     lambda  = lambda_new;
@@ -3661,17 +3661,17 @@ vector<vector<double> > dens;
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 
-	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -3689,7 +3689,7 @@ vector<vector<double> > dens;
 //    corr_new = vector<double>(k,c/sqrt(v.at(0)*v.at(1)));
     for(j=0; j<k; ++j)
     corr_new.at(j) /= sqrt(var_new.at(0).at(j)*var_new.at(1).at(j));
-	get_dens(sample.at(0), lambda_new.at(0), dens);
+	get_dens(mysample.at(0), lambda_new.at(0), dens);
 	gradient(dens, prob_new, grad);
 	get_max_min(grad, prob_new, i_max, i_min, grad_max);
 
@@ -3815,17 +3815,17 @@ dens.clear();
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 
-	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -3968,17 +3968,17 @@ dens.clear();
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 
-	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
@@ -4109,17 +4109,17 @@ int  i_min, i_max;
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	    //  for(l=0; l<dim; ++l)
-//		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+//		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 //
-//	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-//	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
  }
 
 	for(l=0; l<dim; ++l)
@@ -4259,17 +4259,17 @@ while(abs(grad_max-1.) > tol && it < numiter)
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	    //  for(l=0; l<dim; ++l)
-//		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+//		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 //
-//	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-//	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
  }
 
 	for(l=0; l<dim; ++l)
@@ -4414,17 +4414,17 @@ vector<vector<double> > dens;
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	    //  for(l=0; l<dim; ++l)
-//		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+//		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+//		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 //
-//	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-//	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+//	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
  }
 
 	for(l=0; l<dim; ++l)
@@ -4565,17 +4565,17 @@ vector<vector<double> > dens;
 	  {
 	    for(l=0; l<dim; ++l)
 	      {
-		h = sample.at(l).at(i)*e.at(i).at(j);
+		h = mysample.at(l).at(i)*e.at(i).at(j);
 
 		en.at(l) += h;
 	      }
 
 	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(sample.at(l).at(i)-lambda.at(l).at(j),2);
+		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
 
-	      //c += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	      corr_new.at(j) += e.at(i).at(j)*(sample.at(0).at(i)-lambda.at(0).at(j))*(sample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
 	  }
 
 	for(l=0; l<dim; ++l)
