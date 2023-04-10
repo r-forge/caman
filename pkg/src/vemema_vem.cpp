@@ -358,38 +358,38 @@ return rres;
 } 
 
 
-
-////10.Wrapper f?r EM (lang) f?r bivariate Daten 
-SEXP ema_versh(SEXP ra, SEXP rn, SEXP klass, SEXP num, SEXP acc){
-VEMEMA vemema;
-k = INTEGER(klass)[0];
-numiter = INTEGER(num)[0];
-tol=REAL(acc)[0];
-double* x=REAL(ra);
-double* y=REAL(rn);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-mysample.clear();
-   gl.clear();
-   res.clear();
-mysample.push_back(a);
-mysample.push_back(n);
-N = mysample.at(0).size();
-   res = vemema.ema_versh(tol);  
-  SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
-   double* res0=REAL(rres);
-  for(int i=0; i<(int)res.size(); ++i){
-  for(int j=0; j<(int)res.at(0).size(); ++j){
-    gl.push_back(res.at(i).at(j));
-}
-}
-for (int i=0; i<(int)gl.size(); i++){
-       
-res0[i]=gl.at(i);}
-UNPROTECT(1);
-return rres;
-}  
+// PD am 10.4.2023: Auskommentiert, da nicht in CAMAN.R exportiert
+// ////10.Wrapper f?r EM (lang) f?r bivariate Daten 
+// SEXP ema_versh(SEXP ra, SEXP rn, SEXP klass, SEXP num, SEXP acc){
+// VEMEMA vemema;
+// k = INTEGER(klass)[0];
+// numiter = INTEGER(num)[0];
+// tol=REAL(acc)[0];
+// double* x=REAL(ra);
+// double* y=REAL(rn);
+// vector<double> a(x, x + LENGTH (ra));
+// vector<double> n(y, y + LENGTH (rn));
+// mysample.clear();
+//    gl.clear();
+//    res.clear();
+// mysample.push_back(a);
+// mysample.push_back(n);
+// N = mysample.at(0).size();
+//    res = vemema.ema_versh(tol);  
+//   SEXP rres;
+//    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+//    double* res0=REAL(rres);
+//   for(int i=0; i<(int)res.size(); ++i){
+//   for(int j=0; j<(int)res.at(0).size(); ++j){
+//     gl.push_back(res.at(i).at(j));
+// }
+// }
+// for (int i=0; i<(int)gl.size(); i++){
+//        
+// res0[i]=gl.at(i);}
+// UNPROTECT(1);
+// return rres;
+// }  
 
 ////11.Wrapper f?r EM (kurz) f?r bivariate Daten 
 SEXP ema_versh_sh(SEXP ra, SEXP rn, SEXP klass, SEXP num, SEXP acc){
@@ -3722,168 +3722,170 @@ vector<vector<double> > dens;
 return result;
 }
 
-vector<vector<double> > VEMEMA::ema_versh(double tol)
-{
-  int i, j, l;
-  int it=1;
-  
-  double den, P, h, lh, lh_new,oldgrad;
- //f1();
- vem_bivariate(k,tol);
- 
- int dim = lambda.size();
-  int k   = lambda.at(0).size();
- 
- int  i_min, i_max;
- double grad_max=0.;
- vector<double> lik;
- vector<double> grad;
-  grad.clear();
-//cin>>i;
-  vector<double> max_grad;
-   max_grad.clear();
-
-vector<vector<double> > dens;
-
-
-  get_variance();
-
-  get_corr();
-
-
-  
-//Rprintf("erstes mal k=%d dim=%d\n",k,dim);
-  //  lh = likelihood();
-    
-   // Rprintf("Vem logl %f\n",lh);
-  vector<vector<double> > e;
-
-  vector<vector<double> > lambda_new;
-  //vector<vector<double> > var_new;
-  //vector<double> corr_new;
-  vector<double> prob_new;
-  vector<vector<double> > result;
- // cout << endl << "### expectation-maximization algorithm ###" << endl;
-oldgrad=100;
-  //double diff = 100;
-  Rprintf("here we go\n");
-    lh = likelihood();
-    
-    Rprintf("Vem logl %f\n",lh);
-  while(abs(grad_max-1.) > tol && it < numiter)
-  {
-    //cout << "iteration: " << it << "grad "<<grad_max<<"oldgrad"<<endl;
-
-
-    e.clear();
-    e.resize(N);
-dens.clear();
-    for(i=0; i<N; ++i)
-      {
-	den = mix_den(i);
-
-	e.at(i).clear();
-	for(j=0; j<k; ++j)
-	  e.at(i).push_back(prob.at(j)*density(i,j)/den);
-      }
-
-    vector<double> v(dim,0.); // variance
-    //double c = 0.;            // correlation
-
-    vector<vector<double> > var_new(dim,vector<double>(k,0.));
-    vector<double> corr_new(k,0.);
-
-    lambda_new.clear();
-    lambda_new.resize(dim);
-    prob_new.clear();
-    result.clear();
-    for(j=0; j<k; ++j)
-      {
-	P = 0;
-	vector<double> en(dim,0); // enumerator
-	vector<double> den(dim,0); // denominator
-	for(i=0; i<N; ++i)
-	  {
-	    P   += e.at(i).at(j);
-	    for(l=0; l<dim; ++l)
-	      den.at(l) += e.at(i).at(j);
-	  }
-
-	prob_new.push_back(P/N);
-
-	for(i=0; i<N; ++i)
-	  {
-	    for(l=0; l<dim; ++l)
-	      {
-		h = mysample.at(l).at(i)*e.at(i).at(j);
-
-		en.at(l) += h;
-	      }
-
-	      for(l=0; l<dim; ++l)
-		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
-		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
-
-	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
-	  }
-
-	for(l=0; l<dim; ++l)
-	  {
-	    lambda_new.at(l).push_back(en.at(l)/den.at(l));
-	    var_new.at(l).at(j) /= den.at(l);
-	  }
-
-      }
-
-//     var_new.clear();
-//     for(l=0; l<dim; ++l)
-//       var_new.push_back(vector<double>(k,v.at(l))); //???????????????????????????????
-
-//    corr_new = vector<double>(k,c/sqrt(v.at(0)*v.at(1)));
-    for(j=0; j<k; ++j)
-    corr_new.at(j) /= sqrt(var_new.at(0).at(j)*var_new.at(1).at(j));
-
-   // lh = likelihood();
-	get_dens1(lambda_new, dens);
-	gradient(dens, prob_new, grad);
-
-	get_max_min(grad, prob_new, i_max, i_min, grad_max);
-    lambda  = lambda_new;
-    prob    = prob_new;
-    var     = var_new;
-    corr    = corr_new;
-   if(abs(oldgrad-grad_max)<1.E-7) break;
-    oldgrad=grad_max;
-
-    //get_corr();
-
-    //lh_new = likelihood();
-
-  //  diff = abs(lh-lh_new);
-
-    ++it;
-
-  }
-  
-  
-	for(i=0; i<(int)lambda.at(0).size(); ++i){
-  lik.push_back(lh_new);}
-  
-	for(i=0; i<(int)lambda.size(); ++i)
-    result.push_back(lambda.at(i));
-
-
-    result.push_back(prob);
-      for(i=0; i<(int)lambda.size(); ++i)
-   result.push_back(var.at(i));
-    result.push_back(corr);
-     result.push_back(lik);
-
-//Rprintf("%s \n", "EM der bivariate NV mit vershiedenen Varianzen"); 
-//Rprintf("%s \n", "     lambda1_1 lambda1_2 lambda2_1 lambda2_2 prob1 prob2 ");
-return result;
-}
+// PD am 10.4.2023: Auskommentiert, da nicht in CAMAN.R aufgerufen
+// 
+// vector<vector<double> > VEMEMA::ema_versh(double tol)
+// {
+//   int i, j, l;
+//   int it=1;
+//   
+//   double den, P, h, lh, lh_new,oldgrad;
+//  //f1();
+//  vem_bivariate(k,tol);
+//  
+//  int dim = lambda.size();
+//   int k   = lambda.at(0).size();
+//  
+//  int  i_min, i_max;
+//  double grad_max=0.;
+//  vector<double> lik;
+//  vector<double> grad;
+//   grad.clear();
+// //cin>>i;
+//   vector<double> max_grad;
+//    max_grad.clear();
+// 
+// vector<vector<double> > dens;
+// 
+// 
+//   get_variance();
+// 
+//   get_corr();
+// 
+// 
+//   
+// //Rprintf("erstes mal k=%d dim=%d\n",k,dim);
+//   //  lh = likelihood();
+//     
+//    // Rprintf("Vem logl %f\n",lh);
+//   vector<vector<double> > e;
+// 
+//   vector<vector<double> > lambda_new;
+//   //vector<vector<double> > var_new;
+//   //vector<double> corr_new;
+//   vector<double> prob_new;
+//   vector<vector<double> > result;
+//  // cout << endl << "### expectation-maximization algorithm ###" << endl;
+// oldgrad=100;
+//   //double diff = 100;
+//   Rprintf("here we go\n");
+//     lh = likelihood();
+//     
+//     Rprintf("Vem logl %f\n",lh);
+//   while(abs(grad_max-1.) > tol && it < numiter)
+//   {
+//     //cout << "iteration: " << it << "grad "<<grad_max<<"oldgrad"<<endl;
+// 
+// 
+//     e.clear();
+//     e.resize(N);
+// dens.clear();
+//     for(i=0; i<N; ++i)
+//       {
+// 	den = mix_den(i);
+// 
+// 	e.at(i).clear();
+// 	for(j=0; j<k; ++j)
+// 	  e.at(i).push_back(prob.at(j)*density(i,j)/den);
+//       }
+// 
+//     vector<double> v(dim,0.); // variance
+//     //double c = 0.;            // correlation
+// 
+//     vector<vector<double> > var_new(dim,vector<double>(k,0.));
+//     vector<double> corr_new(k,0.);
+// 
+//     lambda_new.clear();
+//     lambda_new.resize(dim);
+//     prob_new.clear();
+//     result.clear();
+//     for(j=0; j<k; ++j)
+//       {
+// 	P = 0;
+// 	vector<double> en(dim,0); // enumerator
+// 	vector<double> den(dim,0); // denominator
+// 	for(i=0; i<N; ++i)
+// 	  {
+// 	    P   += e.at(i).at(j);
+// 	    for(l=0; l<dim; ++l)
+// 	      den.at(l) += e.at(i).at(j);
+// 	  }
+// 
+// 	prob_new.push_back(P/N);
+// 
+// 	for(i=0; i<N; ++i)
+// 	  {
+// 	    for(l=0; l<dim; ++l)
+// 	      {
+// 		h = mysample.at(l).at(i)*e.at(i).at(j);
+// 
+// 		en.at(l) += h;
+// 	      }
+// 
+// 	      for(l=0; l<dim; ++l)
+// 		//v.at(l) += e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2)/(N-1);
+// 		var_new.at(l).at(j) +=  e.at(i).at(j)*pow(mysample.at(l).at(i)-lambda.at(l).at(j),2);
+// 
+// 	      //c += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+// 	      corr_new.at(j) += e.at(i).at(j)*(mysample.at(0).at(i)-lambda.at(0).at(j))*(mysample.at(1).at(i)-lambda.at(1).at(j))/(N-1);
+// 	  }
+// 
+// 	for(l=0; l<dim; ++l)
+// 	  {
+// 	    lambda_new.at(l).push_back(en.at(l)/den.at(l));
+// 	    var_new.at(l).at(j) /= den.at(l);
+// 	  }
+// 
+//       }
+// 
+// //     var_new.clear();
+// //     for(l=0; l<dim; ++l)
+// //       var_new.push_back(vector<double>(k,v.at(l))); //???????????????????????????????
+// 
+// //    corr_new = vector<double>(k,c/sqrt(v.at(0)*v.at(1)));
+//     for(j=0; j<k; ++j)
+//     corr_new.at(j) /= sqrt(var_new.at(0).at(j)*var_new.at(1).at(j));
+// 
+//    // lh = likelihood();
+// 	get_dens1(lambda_new, dens);
+// 	gradient(dens, prob_new, grad);
+// 
+// 	get_max_min(grad, prob_new, i_max, i_min, grad_max);
+//     lambda  = lambda_new;
+//     prob    = prob_new;
+//     var     = var_new;
+//     corr    = corr_new;
+//    if(abs(oldgrad-grad_max)<1.E-7) break;
+//     oldgrad=grad_max;
+// 
+//     //get_corr();
+// 
+//     //lh_new = likelihood();
+// 
+//   //  diff = abs(lh-lh_new);
+// 
+//     ++it;
+// 
+//   }
+//   
+//   
+// 	for(i=0; i<(int)lambda.at(0).size(); ++i){
+//   lik.push_back(lh_new);}
+//   
+// 	for(i=0; i<(int)lambda.size(); ++i)
+//     result.push_back(lambda.at(i));
+// 
+// 
+//     result.push_back(prob);
+//       for(i=0; i<(int)lambda.size(); ++i)
+//    result.push_back(var.at(i));
+//     result.push_back(corr);
+//      result.push_back(lik);
+// 
+// //Rprintf("%s \n", "EM der bivariate NV mit vershiedenen Varianzen"); 
+// //Rprintf("%s \n", "     lambda1_1 lambda1_2 lambda2_1 lambda2_2 prob1 prob2 ");
+// return result;
+// }
 
 
 vector<vector<double> > VEMEMA::ema_versh_sh(double tol)
