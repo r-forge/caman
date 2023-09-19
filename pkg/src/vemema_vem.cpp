@@ -9,7 +9,7 @@
 //#include <ctype.h>
 //#include <Rmath.h>
 #include <R.h>
-#include<Rinternals.h>
+#include <Rinternals.h>
 #include <Rdefines.h>
 # define USE_RINTERNALS
 
@@ -51,7 +51,7 @@ k = INTEGER(klass)[0];
 numiter = INTEGER(num)[0];
 double tol=REAL(acc)[0];
 double* x=REAL(ra);
-vector<double> a(x, x + LENGTH (ra));
+vector<double> a(x, x + Rf_length (ra));
 mysample.clear();
 lik.clear();
  gl.clear();
@@ -60,7 +60,7 @@ mysample.push_back(a);
 N = mysample.at(0).size();
   vector<vector<double> > res = vemema.do_vem(k,tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);  
   for(int i=0; i<(int)res.size(); ++i){
   for(int j=0; j<(int)res.at(0).size(); ++j){
@@ -83,8 +83,8 @@ VEMEMA vemema;
     tol=REAL(acc)[0];
 double* x=REAL(ra);
 double* y=REAL(rn);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
 mysample.clear();
 lik.clear();
 mysample.push_back(a);
@@ -94,7 +94,7 @@ mysample.push_back(n);
 N = mysample.at(0).size();
   res = vemema.f1();  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
   for(int i=0; i<(int)res.size(); ++i){
   for(int j=0; j<(int)res.at(0).size(); ++j){
@@ -118,8 +118,8 @@ numiter = INTEGER(num)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
 double* y=REAL(rn);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
 mysample.clear();
  gl.clear();
  res.clear();
@@ -130,7 +130,7 @@ N = mysample.at(0).size();
 //Rprintf("N =%d \n",N);
  res = vemema.vem_bivariate(k,tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
    
   for(int i=0; i<(int)res.size(); ++i){
@@ -152,8 +152,8 @@ numiter = INTEGER(num)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
 double* y=REAL(rn);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
 mysample.clear();
 mysample.push_back(a);
 mysample.push_back(n);
@@ -163,7 +163,7 @@ N = mysample.at(0).size();
 //Rprintf("N =%d \n",N);
  res = vemema.vem_bivariate_grad(k,tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
   
   for(int i=0; i<(int)res.size(); ++i){
@@ -184,14 +184,14 @@ k = INTEGER(klass)[0];
 numiter = INTEGER(num)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
-vector<double> a(x, x + LENGTH (ra));
+vector<double> a(x, x + Rf_length (ra));
 mysample.clear();
 resi.clear();
 mysample.push_back(a);
 N = mysample.at(0).size();
  resi= vemema.ema_ind_uni(tol);  
   SEXP rres;
-  PROTECT(rres=allocVector(REALSXP, resi.size()));
+  PROTECT(rres=Rf_allocVector(REALSXP, resi.size()));
 double* res0=REAL(rres);
 for (int i=0; i<(int)resi.size(); i++){
 res0[i]=resi.at(i);}
@@ -206,7 +206,7 @@ k = INTEGER(klass)[0];
 numiter = INTEGER(num)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
-vector<double> a(x, x + LENGTH (ra));
+vector<double> a(x, x + Rf_length (ra));
 mysample.clear();
 mysample.push_back(a);
  gl.clear();
@@ -214,7 +214,7 @@ mysample.push_back(a);
 N = mysample.at(0).size();
   res = vemema.ema_uni(tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
   for(int i=0; i<(int)res.size(); ++i){
   for(int j=0; j<(int)res.at(0).size(); ++j){
@@ -237,8 +237,8 @@ numiter = INTEGER(num)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
 double* y=REAL(rn);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
 mysample.clear();
 resi.clear();
 mysample.push_back(a);
@@ -246,7 +246,7 @@ mysample.push_back(n);
 N = mysample.at(0).size();
    resi= vemema.ema_ind(tol);  
   SEXP rres;
-  PROTECT(rres=allocVector(REALSXP, resi.size()));
+  PROTECT(rres=Rf_allocVector(REALSXP, resi.size()));
 double* res0=REAL(rres);
 for (int i=0; i<(int)resi.size(); i++){
 res0[i]=resi.at(i);}
@@ -262,8 +262,8 @@ numiter = INTEGER(num)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
 double* y=REAL(rn);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
 mysample.clear();
 resi.clear();
 mysample.push_back(a);
@@ -271,7 +271,7 @@ mysample.push_back(n);
 N = mysample.at(0).size();
    resi = vemema.ema_ind_sh(tol);  
   SEXP rres;
-  PROTECT(rres=allocVector(REALSXP, resi.size()));
+  PROTECT(rres=Rf_allocVector(REALSXP, resi.size()));
 double* res0=REAL(rres);
 for (int i=0; i<(int)resi.size(); i++){
 res0[i]=resi.at(i);}
@@ -287,8 +287,8 @@ k = INTEGER(klass)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
 double* y=REAL(rn);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
 mysample.clear();
  gl.clear();
  res.clear();
@@ -297,7 +297,7 @@ mysample.push_back(n);
 N = mysample.at(0).size();
    res = vemema.ema_univariat(tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
    
   for(int i=0; i<(int)res.size(); ++i){
@@ -327,11 +327,11 @@ double* e=REAL(lam1);
 double* f=REAL(lam2);
 double* p=REAL(pr);
 
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-vector<double> l1(e, e + LENGTH (lam1));
-vector<double> l2(f, f + LENGTH (lam2));
-vector<double> pro(p, p + LENGTH (pr));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+vector<double> l1(e, e + Rf_length (lam1));
+vector<double> l2(f, f + Rf_length (lam2));
+vector<double> pro(p, p + Rf_length (pr));
 mysample.clear();
 //var.clear();
 lambda.clear();
@@ -349,7 +349,7 @@ N = mysample.at(0).size();
   resi = vemema.ema_ind_start(tol);  
   
   SEXP rres;
-  PROTECT(rres=allocVector(REALSXP, resi.size()));
+  PROTECT(rres=Rf_allocVector(REALSXP, resi.size()));
 double* res0=REAL(rres);
 for (int i=0; i<(int)resi.size(); i++){
 res0[i]=resi.at(i);}
@@ -367,8 +367,8 @@ return rres;
 // tol=REAL(acc)[0];
 // double* x=REAL(ra);
 // double* y=REAL(rn);
-// vector<double> a(x, x + LENGTH (ra));
-// vector<double> n(y, y + LENGTH (rn));
+// vector<double> a(x, x + Rf_length (ra));
+// vector<double> n(y, y + Rf_length (rn));
 // mysample.clear();
 //    gl.clear();
 //    res.clear();
@@ -377,7 +377,7 @@ return rres;
 // N = mysample.at(0).size();
 //    res = vemema.ema_versh(tol);  
 //   SEXP rres;
-//    PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+//    PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
 //    double* res0=REAL(rres);
 //   for(int i=0; i<(int)res.size(); ++i){
 //   for(int j=0; j<(int)res.at(0).size(); ++j){
@@ -399,8 +399,8 @@ numiter = INTEGER(num)[0];
 tol=REAL(acc)[0];
 double* x=REAL(ra);
 double* y=REAL(rn);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
 mysample.clear();
 mysample.push_back(a);
 mysample.push_back(n);
@@ -410,7 +410,7 @@ lik.clear();
 N = mysample.at(0).size();
   res = vemema.ema_versh_sh(tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
   for(int i=0; i<(int)res.size(); ++i){
   for(int j=0; j<(int)res.at(0).size(); ++j){
@@ -440,14 +440,14 @@ double* e=REAL(lam1);
 double* f=REAL(lam2);
 double* p=REAL(pr);
 
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-//vector<double> v1(d, d + LENGTH (rv1));
-//vector<double> v2(z, z + LENGTH (rv2));
-//vector<double> co(c, c + LENGTH (cor));
-vector<double> l1(e, e + LENGTH (lam1));
-vector<double> l2(f, f + LENGTH (lam2));
-vector<double> pro(p, p + LENGTH (pr));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+//vector<double> v1(d, d + Rf_length (rv1));
+//vector<double> v2(z, z + Rf_length (rv2));
+//vector<double> co(c, c + Rf_length (cor));
+vector<double> l1(e, e + Rf_length (lam1));
+vector<double> l2(f, f + Rf_length (lam2));
+vector<double> pro(p, p + Rf_length (pr));
 mysample.clear();
 lik.clear();
 lambda.clear();
@@ -466,7 +466,7 @@ prob=pro;
 N = mysample.at(0).size();
   res = vemema.ema_versh_start(tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
   for(int i=0;i<(int)res.size(); ++i){
   for(int j=0; j<(int)res.at(0).size(); ++j){
@@ -494,10 +494,10 @@ double* d=REAL(rv1);
 double* z=REAL(rv2);
 
 
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-vector<double> v1(d, d + LENGTH (rv1));
-vector<double> v2(z, z + LENGTH (rv2));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+vector<double> v1(d, d + Rf_length (rv1));
+vector<double> v2(z, z + Rf_length (rv2));
 
 
 mysample.clear();
@@ -512,7 +512,7 @@ var.push_back(v2);
 N = mysample.at(0).size();
   res = vemema.vem_bivariate_meta(k,tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
   for(int i=0;i<(int)res.size(); ++i){
   for(int j=0; j<(int)res.at(0).size(); ++j){
@@ -536,10 +536,10 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 double* d=REAL(rv1);
 double* z=REAL(rv2);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-vector<double> v1(d, d + LENGTH (rv1));
-vector<double> v2(z, z + LENGTH (rv2));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+vector<double> v1(d, d + Rf_length (rv1));
+vector<double> v2(z, z + Rf_length (rv2));
 mysample.clear();
 var.clear();
 lik.clear();
@@ -554,7 +554,7 @@ var.push_back(v2);
 N = mysample.at(0).size();
   res = vemema.f1_meta();  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
   for(int i=0;i<(int)res.size(); ++i){
   for(int j=0; j<(int)res.at(0).size(); ++j){
@@ -578,10 +578,10 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 double* d=REAL(rv1);
 double* z=REAL(rv2);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-vector<double> v1(d, d + LENGTH (rv1));
-vector<double> v2(z, z + LENGTH (rv2));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+vector<double> v1(d, d + Rf_length (rv1));
+vector<double> v2(z, z + Rf_length (rv2));
 
 mysample.clear();
 var.clear();
@@ -596,7 +596,7 @@ var.push_back(v2);
 N = mysample.at(0).size();
   resi = vemema.ema_ind_meta(tol);  
   SEXP rres;
-  PROTECT(rres=allocVector(REALSXP, resi.size()));
+  PROTECT(rres=Rf_allocVector(REALSXP, resi.size()));
 double* res0=REAL(rres);
 for (int i=0; i<(int)resi.size(); i++){
 res0[i]=resi.at(i);}
@@ -614,10 +614,10 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 double* d=REAL(rv1);
 double* z=REAL(rv2);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-vector<double> v1(d, d + LENGTH (rv1));
-vector<double> v2(z, z + LENGTH (rv2));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+vector<double> v1(d, d + Rf_length (rv1));
+vector<double> v2(z, z + Rf_length (rv2));
 
 mysample.clear();
 var.clear();
@@ -632,7 +632,7 @@ var.push_back(v2);
 N = mysample.at(0).size();
  resi = vemema.ema_ind_meta_sh(tol);  
   SEXP rres;
-  PROTECT(rres=allocVector(REALSXP, resi.size()));
+  PROTECT(rres=Rf_allocVector(REALSXP, resi.size()));
 double* res0=REAL(rres);
 for (int i=0; i<(int)resi.size(); i++){
 res0[i]=resi.at(i);}
@@ -658,14 +658,14 @@ double* e=REAL(lam1);
 double* f=REAL(lam2);
 double* p=REAL(pr);
 
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-vector<double> v1(d, d + LENGTH (rv1));
-vector<double> v2(z, z + LENGTH (rv2));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+vector<double> v1(d, d + Rf_length (rv1));
+vector<double> v2(z, z + Rf_length (rv2));
 
-vector<double> l1(e, e + LENGTH (lam1));
-vector<double> l2(f, f + LENGTH (lam2));
-vector<double> pro(p, p + LENGTH (pr));
+vector<double> l1(e, e + Rf_length (lam1));
+vector<double> l2(f, f + Rf_length (lam2));
+vector<double> pro(p, p + Rf_length (pr));
 mysample.clear();
 var.clear();
 lambda.clear();
@@ -683,7 +683,7 @@ prob=pro;
 N = mysample.at(0).size();
   res = vemema.ema_versh_meta(tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
    
   for(int i=0;i<(int)res.size(); ++i){
@@ -715,14 +715,14 @@ double* e=REAL(lam1);
 double* f=REAL(lam2);
 double* p=REAL(pr);
 
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-vector<double> v1(d, d + LENGTH (rv1));
-vector<double> v2(z, z + LENGTH (rv2));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+vector<double> v1(d, d + Rf_length (rv1));
+vector<double> v2(z, z + Rf_length (rv2));
 
-vector<double> l1(e, e + LENGTH (lam1));
-vector<double> l2(f, f + LENGTH (lam2));
-vector<double> pro(p, p + LENGTH (pr));
+vector<double> l1(e, e + Rf_length (lam1));
+vector<double> l2(f, f + Rf_length (lam2));
+vector<double> pro(p, p + Rf_length (pr));
 mysample.clear();
 var.clear();
 lambda.clear();
@@ -738,7 +738,7 @@ prob=pro;
 N = mysample.at(0).size();
 resi = vemema.ema_ind_meta_start(tol);  
   SEXP rres;
-  PROTECT(rres=allocVector(REALSXP, resi.size()));
+  PROTECT(rres=Rf_allocVector(REALSXP, resi.size()));
 double* res0=REAL(rres);
 for (int i=0; i<(int)resi.size(); i++){
 res0[i]=resi.at(i);}
@@ -756,10 +756,10 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 double* d=REAL(rv1);
 double* z=REAL(rv2);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-vector<double> v1(d, d + LENGTH (rv1));
-vector<double> v2(z, z + LENGTH (rv2));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+vector<double> v1(d, d + Rf_length (rv1));
+vector<double> v2(z, z + Rf_length (rv2));
 
 mysample.clear();
 var.clear();
@@ -773,7 +773,7 @@ res.clear();
 N = mysample.at(0).size();
  res = vemema.ema_meta(tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
    
   for(int i=0;i<(int)res.size(); ++i){
@@ -799,10 +799,10 @@ double* x=REAL(ra);
 double* y=REAL(rn);
 double* d=REAL(rv1);
 double* z=REAL(rv2);
-vector<double> a(x, x + LENGTH (ra));
-vector<double> n(y, y + LENGTH (rn));
-vector<double> v1(d, d + LENGTH (rv1));
-vector<double> v2(z, z + LENGTH (rv2));
+vector<double> a(x, x + Rf_length (ra));
+vector<double> n(y, y + Rf_length (rn));
+vector<double> v1(d, d + Rf_length (rv1));
+vector<double> v2(z, z + Rf_length (rv2));
 
 mysample.clear();
 var.clear();
@@ -817,7 +817,7 @@ var.push_back(v2);
 N = mysample.at(0).size();
    res = vemema.ema_meta_sh(tol);  
   SEXP rres;
-   PROTECT(rres=allocVector(REALSXP,(res.size()*res.at(0).size())));
+   PROTECT(rres=Rf_allocVector(REALSXP,(res.size()*res.at(0).size())));
    double* res0=REAL(rres);
   
   for(int i=0;i<(int)res.size(); ++i){
@@ -1190,7 +1190,7 @@ double VEMEMA::mix_den(int i)
 
 	int j;
 	double m_d = 0;
-	//Rprintf("length %d\n",(int)lambda.at(0).size());
+	//Rprintf("Rf_length %d\n",(int)lambda.at(0).size());
 	for(j=0; j<(int)lambda.at(0).size(); ++j)
 		m_d += prob.at(j)*density(i,j);
 
@@ -1421,14 +1421,14 @@ void VEMEMA::get_start_values(int start_nr_cl, vector<double>& s, vector<double>
 
 	get_max_min(s,max,min);
 
-	double steplength = (max-min)/(start_nr_cl-1);
+	double stepRf_length = (max-min)/(start_nr_cl-1);
 
 	l.clear();
 
 	for(i=0; i<start_nr_cl; ++i)
 	{
-	 // cout<<"min= "<<min<<"step  "<<min+i*steplength<<endl;
-		l.push_back(min+i*steplength);
+	 // cout<<"min= "<<min<<"step  "<<min+i*stepRf_length<<endl;
+		l.push_back(min+i*stepRf_length);
 	}
 //cout<<"start"<<start_ nr_cl<<endl;
 //cin>>i;
@@ -1537,7 +1537,7 @@ vector<double>s1;
    s21=s21-sl*sl;
  }
 
- ////   Optimal step-length procedure
+ ////   Optimal step-Rf_length procedure
 
 	step=0.;
         oldstep=0.;

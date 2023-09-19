@@ -5,11 +5,14 @@
 #include <errno.h>
 //#include <stdlib.h>
 #include <ctype.h>
+#include <vector>
+
 //#include <iomanip.h>
+
+# define R_NO_REMAP
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
-#include <vector>
 
 
 

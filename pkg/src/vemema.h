@@ -4,6 +4,8 @@
 #include <vector>
 #include <ctype.h>
 //#include <iomanip.h>
+
+# define R_NO_REMAP
 #include <R.h>
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
