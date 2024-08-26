@@ -995,7 +995,7 @@ void VEMEMA::get_corr()
 double VEMEMA::normal(double k, double l, double v)
 {
 	//assert(v>0);
-	return exp((l-k)*(k-l)/(2*v)) / sqrt(2*PI*v);
+	return exp((l-k)*(k-l)/(2*v)) / sqrt(2*M_PI*v);
 }
 
 

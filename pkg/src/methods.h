@@ -19,7 +19,6 @@
 
 #define one 1.00
 #define rtwopi 2.506628275
-//#define PI 3.141592654
 #define half 0.5
 
 extern "C" {
